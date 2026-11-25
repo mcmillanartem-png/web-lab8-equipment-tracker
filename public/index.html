@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Учёт оборудования</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <nav aria-label="Основное меню"><a href="/">Главная</a> | <a href="/about">О себе</a></nav>
+    <h1>Учёт оборудования лаборатории</h1>
+  </header>
+
+  <main>
+    <!-- Сообщения об успехе и ошибках -->
+    <p id="message" class="message" role="status" aria-live="polite" hidden></p>
+
+    <!-- Табы -->
+    <div class="tabs" role="tablist" aria-label="Разделы">
+      <button type="button" role="tab" id="tab-equipment" aria-controls="panel-equipment" aria-selected="true">Оборудование</button>
+      <button type="button" role="tab" id="tab-loans" aria-controls="panel-loans" aria-selected="false">Активные выдачи</button>
+    </div>
+
+    <!-- Вкладка «Оборудование» -->
+    <section id="panel-equipment" role="tabpanel" aria-labelledby="tab-equipment">
+      <div class="toolbar">
+        <label>Тип
+          <select id="filterType">
+            <option value="">Все</option>
+          </select>
+        </label>
+        <label>Статус
+          <select id="filterStatus">
+            <option value="">Все</option>
+            <option value="available">Свободно</option>
+            <option value="in_use">В использовании</option>
+          </select>
+        </label>
+        <button type="button" id="addBtn" class="primary">Добавить оборудование</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Название</th>
+              <th scope="col">Тип</th>
+              <th scope="col">Серийный номер</th>
+              <th scope="col">Статус</th>
+              <th scope="col">Действия</th>
+            </tr>
+          </thead>
+          <tbody id="equipmentBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Вкладка «Активные выдачи» -->
+    <section id="panel-loans" role="tabpanel" aria-labelledby="tab-loans" hidden>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Оборудование</th>
+              <th scope="col">Серийный номер</th>
+              <th scope="col">Кому выдано</th>
+              <th scope="col">Дата выдачи</th>
+              <th scope="col">Действия</th>
+            </tr>
+          </thead>
+          <tbody id="loansBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Модальное окно: добавление / редактирование оборудования -->
+  <dialog id="equipmentDialog" aria-labelledby="equipmentDialogTitle">
+    <form id="equipmentForm">
+      <h2 id="equipmentDialogTitle">Добавить оборудование</h2>
+      <label>Название
+        <input name="name" required maxlength="100">
+      </label>
+      <label>Тип
+        <input name="type" required maxlength="50" list="typeList">
+      </label>
+      <datalist id="typeList"></datalist>
+      <label>Серийный номер
+        <input name="serial_number" required maxlength="50">
+      </label>
+      <p class="form-error" role="alert"></p>
+      <div class="dialog-buttons">
+        <button type="button" data-close>Отмена</button>
+        <button type="submit" class="primary">Сохранить</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Модальное окно: оформление выдачи -->
+  <dialog id="loanDialog" aria-labelledby="loanDialogTitle">
+    <form id="loanForm">
+      <h2 id="loanDialogTitle">Оформить выдачу</h2>
+      <p id="loanEquipmentName"></p>
+      <label>Кому выдаётся
+        <input name="borrower" required maxlength="100">
+      </label>
+      <label>Дата выдачи
+        <input name="issue_date" type="date" required>
+      </label>
+      <p class="form-error" role="alert"></p>
+      <div class="dialog-buttons">
+        <button type="button" data-close>Отмена</button>
+        <button type="submit" class="primary">Выдать</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="/script.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

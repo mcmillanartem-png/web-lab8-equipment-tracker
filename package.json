@@ -1,0 +1,13 @@
+{
+  "name": "lab8",
+  "version": "1.0.0",
+  "description": "Лабораторная работа №8, вариант 20: система учёта оборудования",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
